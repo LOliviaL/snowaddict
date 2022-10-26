@@ -1,8 +1,10 @@
 <?php
 
 final class FigureController {
-    function create()
+    function create() :void 
     {
+        
+        require_once('views/figure/create.php');
         
     }
 

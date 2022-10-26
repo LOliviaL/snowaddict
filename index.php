@@ -4,13 +4,14 @@
     // define('CONTACT_PATH', '/contact');
 
     // const HOMEPAGE_PATH = '';
+
     const CONTACT_PATH = 'contact';
 
     require_once('views/base.php');
 
     $requestUri = explode('/', $_SERVER['REQUEST_URI']);
 
-    switch($requestUri[array_key_last($requestUri)]) {
+    switch($requestUri[array_key_last($requestUri)]) {// $_SERVER['PATH_INFO']
         /**case HOMEPAGE_PATH:
             echo 'ACCUEIL';
             break;*/
@@ -25,6 +26,8 @@
             echo 'ACCUEIL';
     }
 
+   
+
     require_once('controllers/'.$controller.'Controller.php');
 
     $controller = new ($controller.'Controller');
@@ -38,3 +41,4 @@
         echo 'CONTACT';
     }
     **/
+?>

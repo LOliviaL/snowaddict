@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 
     // define('HOMEPAGE_PATH', '/');
     // define('CONTACT_PATH', '/contact');
@@ -25,6 +26,9 @@
             $action = 'home';
             echo 'ACCUEIL';
     }
+=======
+    require_once('controllers/homepageController.php');
+>>>>>>> 3e7c21d254f16130744f06fae0a0021643cc3a57
 
 <<<<<<< HEAD
    
@@ -34,21 +38,19 @@
             $action = $_GET['action'];
 
             if ('figure' === $_GET['controller']) {
+                $figureController = new FigureController();
+
                 if ('create' === $action) {
-                    var_dump('ok');
+                    $figureController->create();
                 }
             }
+        } else {
+            (new HomepageController())->home();
         }
     } catch (\Exception $exception) {
-        throw new \Exception('Erreur');
+        throw new \Exception($exception->getMessage());
     }
 >>>>>>> e56e7c754b943eb778c3a58f759faac5dd96e626
-
-    require_once('controllers/'.$controller.'Controller.php');
-
-    $controller = new ($controller.'Controller');
-
-    echo $controller->{$action}('Jacques');
 
     /**
     if($_SERVER['REQUEST_URI'] === '/') {

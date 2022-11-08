@@ -1,7 +1,7 @@
 <?php
 
 class Figure {
-    private int $id;
+    private ?int $id;
     private string $name;
     private string $description;
     private string $picturePath;
@@ -14,7 +14,11 @@ class Figure {
         $this->createdAt = new \DateTime();
     }
 
+<<<<<<< HEAD
     public function getId(): int    
+=======
+    public function getId(): ?int
+>>>>>>> 584eb3b34a8df9536d85186364de3813de018286
     {
         return $this->id;
     }

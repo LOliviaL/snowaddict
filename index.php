@@ -22,6 +22,14 @@
                     $figureController->list();
 >>>>>>> 959df8667db97efef9f899e90d32bc00043cc173
                 }
+
+                if ('update' === $action) {
+                    if (!array_key_exists('id', $_GET)) {
+                        throw new \Exception('Id parameter is mandatory');
+                    }
+
+                    $figureController->update($_GET['id']);
+                }
             }
         } else {
             (new HomepageController())->home();

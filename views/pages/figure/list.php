@@ -10,7 +10,7 @@
       <th scope="col">Video path</th>
       <th scope="col">Created date</th>
       <th scope="col">Updated date</th>
-      <th scope="col">Action</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -38,9 +38,20 @@
         <?= $figure->getUpdatedAt(); ?>
       </td>
       <td>
-    <button type="submit" class="btn btn-outline-success" ><a href="/snowaddict/index.php?action=update&controller=figure&id=<?php echo $figure->getId();?> ">Update my list</a></button>
-    <?php $idselect = $figure->getId(); ?>
-    </td>
+        <a href="/index.php?action=update&controller=figure&id=<?= $figure->getId(); ?>">
+          <button class="btn btn-primary btn-sm">Modifier</button>
+        </a>
+      </td>
+      <td>
+        <a href="/index.php?action=update&controller=figure&id=<?= $figure->getId(); ?>">
+          <button class="btn btn-primary btn-sm">Read</button>
+        </a>
+      </td>
+      <td>
+        <a href="/index.php?action=list&controller=figure&id=<?= $figure->getId(); ?>">
+          <button class="btn btn-primary btn-sm">Supprimer</button>
+        </a>
+      </td>
     </tr>
     <?php } ?>
   </tbody>

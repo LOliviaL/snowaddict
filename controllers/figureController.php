@@ -6,6 +6,15 @@ require_once('repositories/figureRepository.php');
 
 final class FigureController
 {
+    private FigureRepository $figureRepository;
+
+    function __construct()
+    {
+        $this->figureRepository = new FigureRepository();
+
+        $this->figureRepository->setConnection((new DatabaseConnection())->getConnection());
+    }
+
     function create(): void
     {
         $isSent = false;
@@ -19,10 +28,7 @@ final class FigureController
             $figure->setPicturePath($_POST['picture']);
             $figure->setVideoPath($_POST['video']);
 
-            $figureRepository = new FigureRepository();
-            $figureRepository->setConnection((new DatabaseConnection())->getConnection());
-
-            $figureRepository->create($figure);
+            $this->figureRepository->create($figure);
         }
 
         require_once('views/pages/figure/create.php');
@@ -35,30 +41,33 @@ final class FigureController
 
     }
 
-    function update(): void
+    function update(int $figureId): void
     {
         $isSent = false;
 
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
+            $figure = new Figure();
+            $figure->setId($figureId);
+            $figure->setName($_POST['name']);
+            $figure->setDescription($_POST['description']);
+            $figure->setPicturePath($_POST['picture']);
+            $figure->setVideoPath($_POST['video']);
+            $figure->setUpdatedAt(new \DateTime());
+
+            $this->figureRepository->update($figure);
+
             $isSent = true;
-
-            $up = new Figure();
-            $up->setName($_POST['name']);
-            $up->setDescription($_POST['description']);
-            $up->setPicturePath($_POST['picture']);
-            $up->setVideoPath($_POST['video']);
-
-            $figureRepository = new FigureRepository();
-            $figureRepository->setConnection((new DatabaseConnection())->getConnection());
-
-            $update = $figureRepository->update($up);
+        } else {
+            $figure = $this->figureRepository->findById($figureId);
         }
-        require_once('views/pages/figure/updated.php');
 
+        require_once('views/pages/figure/update.php');
     }
 
     function delete()
     {
+        
+        require_once('views/pages/figure/list.php');
 
     }
 

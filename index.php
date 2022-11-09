@@ -13,8 +13,14 @@
                 if ('create' === $action) {
                     $figureController->create();
                 }
+<<<<<<< HEAD
                 if ('liste' === $action){
                     $figureController ->list();
+=======
+
+                if ('list' === $action) {
+                    $figureController->list();
+>>>>>>> 959df8667db97efef9f899e90d32bc00043cc173
                 }
             }
         } else {

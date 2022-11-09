@@ -49,10 +49,16 @@ final class FigureController
     {
         $figureRepository = new FigureRepository();
         $figureRepository->setConnection((new DatabaseConnection())->getConnection());
+<<<<<<< HEAD
 
         $figureList=$figureRepository->list();
 
         require_once('views/pages/figure/liste.php');
+=======
+>>>>>>> 959df8667db97efef9f899e90d32bc00043cc173
 
+        $figures = $figureRepository->list();
+
+        require_once('views/pages/figure/list.php');
     }
 }

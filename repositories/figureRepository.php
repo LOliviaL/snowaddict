@@ -14,7 +14,7 @@ final class FigureRepository
         $description = $figure->getDescription();
         $picturePath = $figure->getPicturePath();
         $videoPath = $figure->getVideoPath();
-        $createdAt = $figure->getCreatedAt()->format('Y-m-d H:i:s');
+        $createdAt = $figure->getCreatedAt();
 
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':description', $description);
@@ -31,4 +31,30 @@ final class FigureRepository
 
         return $this;
     }
+
+    public function list(): array{
+        $stmt = $this->databaseConnection->prepare("SELECT * FROM `Figure`");
+        $stmt->execute();
+        $resultat = $stmt->fetchAll();
+
+        $figure =[];
+        foreach($resultat as $a){
+
+            $objet = new Figure();
+
+            $objet -> setId($a['id']);
+            $objet -> setName($a['name']);
+            $objet -> setDescription($a['description']);
+            $objet -> setPicturePath($a['picturePath']);
+            $objet -> setVideoPath($a['videoPath']);
+            $objet -> setCreatedAt(new \DateTime($a['createdAt']));
+            $objet -> setUpdatedAt($a['updatedAt'] !== null ? new \DateTime($a['updatedAt']) : null);
+
+            $figure[]=$objet;
+
+        }
+        return $figure;
+    }
+
+
 }

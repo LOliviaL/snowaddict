@@ -14,13 +14,15 @@ class Figure {
         $this->createdAt = new \DateTime();
     }
 
-<<<<<<< HEAD
-    public function getId(): int    
-=======
     public function getId(): ?int
->>>>>>> 584eb3b34a8df9536d85186364de3813de018286
     {
         return $this->id;
+    }
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+
     }
 
     public function getName(): string
@@ -71,9 +73,9 @@ class Figure {
         return $this;
     }
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): string
     {
-        return $this->createdAt;
+        return $this->createdAt->format('Y-m-d H:i:s');
     }
 
     public function setCreatedAt(\DateTime $createdAt): self
@@ -83,9 +85,9 @@ class Figure {
         return $this;
     }
 
-    public function getDeletedAt(): ?\DateTime
+    public function getDeletedAt(): string
     {
-        return $this->deletedAt;
+        return $this->deletedAt !== null ? $this->deletedAt->format('Y-m-d H:i:s') : null; // on test que le cas vrai si il est faux il retourne null.
     }
 
     public function setDeletedAt(?\DateTime $deletedAt): self
@@ -95,9 +97,9 @@ class Figure {
         return $this;
     }
 
-    public function getUpdatedAt(): ?\Datetime
+    public function getUpdatedAt(): string
     {
-        return $this->updatedAt;
+        return $this->updatedAt !== null ? $this-> updatedAt ->format('Y-m-d H:i:s') : null;
     }
 
     public function setUpdatedAt(?\Datetime $updatedAt): self

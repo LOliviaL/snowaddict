@@ -49,36 +49,58 @@ final class FigureRepository
 
         return $figures;
     }
+    public function update(Figure $figure): void
+    {
+        //$stmt = $this->databaseConnection->prepare('INSERT INTO figure (name, description, picturePath, videoPath, createdAt) VALUES (:name, :description, :picturePath, :videoPath, :createdAt)');
+
+        $stmt = $this->databaseConnection->prepare('UPDATE `Figure` SET `name`=:name,`description`=:description,`picturePath`=:picturePath,`videoPath`=:videoPath,`updatedAt`=:updatedAt WHERE `id`=:id ');
+        
+        $name = $figure->getName();
+        $description = $figure->getDescription();
+        $picturePath = $figure->getPicturePath();
+        $videoPath = $figure->getVideoPath();
+        $updatedAt = (new \DateTime())->format('Y-m-d H:i:s');
+        $id=$_GET['id'];
+        
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':picturePath', $picturePath);
+        $stmt->bindParam(':videoPath', $videoPath);
+        $stmt->bindParam(':updatedAt', $updatedAt);
+
+        $stmt->execute();
+    }
+    public function getFigure() 
+    {
+        $stmt = $this->databaseConnection->prepare('SELECT * FROM figure WHERE `id`=:id ');
+
+        $stmt->execute();
+        $result = $stmt->fetch();
+        
+    
+        $figure = new Figure();
+
+        $figure->setId($result['id']);
+        $figure->setName($result['name']);
+        $figure->setDescription($result['description']);
+        $figure->setPicturePath($result['picturePath']);
+        $figure->setVideoPath($result['videoPath']);
+        
+        $figure->setUpdatedAt($result['updatedAt'] !== null ? new \DateTime($result['updatedAt']) : null);
+
+    
+        return $figure;
+    }
+
+
+    
 
     public function setConnection(\PDO $databaseConnection): self
     {
         $this->databaseConnection = $databaseConnection;
 
         return $this;
-    }
-
-    public function list(): array{
-        $stmt = $this->databaseConnection->prepare("SELECT * FROM `Figure`");
-        $stmt->execute();
-        $resultat = $stmt->fetchAll();
-
-        $figure =[];
-        foreach($resultat as $a){
-
-            $objet = new Figure();
-
-            $objet -> setId($a['id']);
-            $objet -> setName($a['name']);
-            $objet -> setDescription($a['description']);
-            $objet -> setPicturePath($a['picturePath']);
-            $objet -> setVideoPath($a['videoPath']);
-            $objet -> setCreatedAt(new \DateTime($a['createdAt']));
-            $objet -> setUpdatedAt($a['updatedAt'] !== null ? new \DateTime($a['updatedAt']) : null);
-
-            $figure[]=$objet;
-
-        }
-        return $figure;
     }
 
 

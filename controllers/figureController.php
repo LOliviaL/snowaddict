@@ -35,8 +35,25 @@ final class FigureController
 
     }
 
-    function update()
+    function update(): void
     {
+        $isSent = false;
+
+        if ('POST' === $_SERVER['REQUEST_METHOD']) {
+            $isSent = true;
+
+            $up = new Figure();
+            $up->setName($_POST['name']);
+            $up->setDescription($_POST['description']);
+            $up->setPicturePath($_POST['picture']);
+            $up->setVideoPath($_POST['video']);
+
+            $figureRepository = new FigureRepository();
+            $figureRepository->setConnection((new DatabaseConnection())->getConnection());
+
+            $update = $figureRepository->update($up);
+        }
+        require_once('views/pages/figure/updated.php');
 
     }
 
@@ -49,13 +66,6 @@ final class FigureController
     {
         $figureRepository = new FigureRepository();
         $figureRepository->setConnection((new DatabaseConnection())->getConnection());
-<<<<<<< HEAD
-
-        $figureList=$figureRepository->list();
-
-        require_once('views/pages/figure/liste.php');
-=======
->>>>>>> 959df8667db97efef9f899e90d32bc00043cc173
 
         $figures = $figureRepository->list();
 

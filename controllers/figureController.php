@@ -64,19 +64,25 @@ final class FigureController
         require_once('views/pages/figure/update.php');
     }
 
-    function delete()
+    function delete(int $figureId)
     {
+<<<<<<< HEAD
         
         require_once('views/pages/figure/list.php');
+=======
+        $this->figureRepository->delete($figureId);
+>>>>>>> d9995066c4a5b21293bf131b1882683c303acd65
 
+        $isDelete = true;
+
+        $figures = $this->figureRepository->list();
+
+        require_once('views/pages/figure/list.php');
     }
 
     function list(): void
     {
-        $figureRepository = new FigureRepository();
-        $figureRepository->setConnection((new DatabaseConnection())->getConnection());
-
-        $figures = $figureRepository->list();
+        $figures = $this->figureRepository->list();
 
         require_once('views/pages/figure/list.php');
     }
